@@ -1,0 +1,5 @@
+setup.py
+tbear_utils.egg-info/PKG-INFO
+tbear_utils.egg-info/SOURCES.txt
+tbear_utils.egg-info/dependency_links.txt
+tbear_utils.egg-info/top_level.txt

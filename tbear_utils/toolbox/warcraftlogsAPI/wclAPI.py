@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 
 class WCLAPI:
-
+    client_ID = "9a283e8f-a830-4c73-b9f4-a2dc64aa152e"
+    client_Secret = "DabWRDnnFgzOdOz0JyopTbOmNVIjGw0psA0uMpJb"
     # def __init__(self):
     @staticmethod
     def fetch_raid_data():
