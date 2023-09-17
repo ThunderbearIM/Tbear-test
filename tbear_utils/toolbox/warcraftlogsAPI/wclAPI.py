@@ -2,15 +2,14 @@ import requests
 import pandas as pd
 import numpy as np
 
-class wclAPI:
+class WCLAPI:
 
     # def __init__(self):
-
     @staticmethod
     def fetch_raid_data():
 
         # API endpoint for raid rankings
-        url = "https://classic.warcraftlogs.com/v1/rankings/encounter/1000?zone=1000&api_key=YOUR_API_KEY&guild=The%20Middle&server=Golemagg"
+        url = "https://classic.warcraftlogs.com/v1/rankings/encounter/1000?zone=1000&api_key=98fda3b2-1fa8-43f5-9b10-160432900287&guild=The%20Middle&server=Golemagg"
         data = None
         try:
             response = requests.get(url)
@@ -32,5 +31,5 @@ class wclAPI:
             # Add your code to process the raid data here
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == "__WCLAPI__":
+    WCLAPI()
