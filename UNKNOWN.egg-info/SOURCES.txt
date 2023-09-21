@@ -1,0 +1,11 @@
+pyproject.toml
+UNKNOWN.egg-info/PKG-INFO
+UNKNOWN.egg-info/SOURCES.txt
+UNKNOWN.egg-info/dependency_links.txt
+UNKNOWN.egg-info/top_level.txt
+tbear_utils/Evolutionary_learning/population/__init__.py
+tbear_utils/Evolutionary_learning/population/population.py
+tbear_utils/statistical_models/Linear_regression/differential_lin_reg/__init__.py
+tbear_utils/statistical_models/Linear_regression/differential_lin_reg/differential_lin_reg.py
+tbear_utils/toolbox/warcraftlogsAPI/__init__.py
+tbear_utils/toolbox/warcraftlogsAPI/wclAPI.py
