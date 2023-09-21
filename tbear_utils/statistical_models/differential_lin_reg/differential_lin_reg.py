@@ -24,12 +24,12 @@ class DifferentialLinReg:
         :return: sklearn Linear Regression model
         """
         if ts:
-            x = df.reset_index().iloc[:, 0].values()
-            y = df.iloc[:, 0].values()
+            x = df.reset_index().iloc[:, 0].values.reshape(-1, 1)
+            y = df.iloc[:, 0].values.reshape(-1, 1)
 
         else:
-            x = df.iloc[:, 0].values
-            y = df.iloc[:, 1].values
+            x = df.iloc[:, 0].values.reshape(-1, 1)
+            y = df.iloc[:, 1].values.reshape(-1, 1)
 
         model = LinearRegression().fit(X=x,
                                        y=y)
