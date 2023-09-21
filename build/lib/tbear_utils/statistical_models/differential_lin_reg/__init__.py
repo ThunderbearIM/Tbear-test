@@ -1,0 +1,2 @@
+from tbear_utils.statistical_models.differential_lin_reg import differential_lin_reg
+from tbear_utils.statistical_models.differential_lin_reg.differential_lin_reg import DifferentialLinReg

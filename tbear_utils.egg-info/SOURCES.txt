@@ -1,6 +1,10 @@
 pyproject.toml
 setup.py
+tbear_utils/__init__.py
 tbear_utils.egg-info/PKG-INFO
 tbear_utils.egg-info/SOURCES.txt
 tbear_utils.egg-info/dependency_links.txt
 tbear_utils.egg-info/top_level.txt
+tbear_utils/statistical_models/__init__.py
+tbear_utils/statistical_models/differential_lin_reg/__init__.py
+tbear_utils/statistical_models/differential_lin_reg/differential_lin_reg.py
