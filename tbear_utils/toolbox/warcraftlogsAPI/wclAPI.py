@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 import numpy as np
+from ReunionLog import OAuth
 
 class WCLAPI:
     client_ID = "9a283e8f-a830-4c73-b9f4-a2dc64aa152e"
@@ -32,5 +33,5 @@ class WCLAPI:
             # Add your code to process the raid data here
 
 
-if __name__ == "__WCLAPI__":
+if __name__ == "__wclAPI__":
     WCLAPI()
