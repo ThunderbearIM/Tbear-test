@@ -8,7 +8,7 @@ class DifferentialLinReg:
     @staticmethod
     def diff_data(df: pd.DataFrame):
         df = df.copy()
-        df = df.diff(1)
+        df = df.diff(1).dropna()
         return df
 
     def diff_lin_reg(self, df: pd.DataFrame, ts=False):
@@ -49,9 +49,31 @@ class DifferentialLinReg:
         :return: final_prediction
         """
 
+        prediction_range = prediction_range.reshape(-1, 1)
         prediction = model.predict(prediction_range)
         prediction= np.append(last_datapoint, prediction)
         final_prediction = np.cumsum(prediction)
 
         return final_prediction
+
+    def combine_diff_model_predict(self, df: pd.DataFrame, last_datapoint: float, ts = False):
+
+        """
+        Combines the differential, treatment and prediction of the original data to instantly give out a prediction
+
+        :param df:
+        :param last_datapoint:
+        :param ts:
+        :return:
+        """
+
+        df = df.copy()
+        df = self.diff_data(df)
+        model = self.diff_lin_reg(df, ts=True)
+        prediction_range = np.array(range(0, len(df)))
+        prediction = self.diff_lin_reg_predict(model=model,
+                                               prediction_range=prediction_range,
+                                               last_datapoint=last_datapoint)
+
+        return prediction
 
