@@ -59,8 +59,7 @@ class LSTM_additions:
         batch_test = [10, 20, 30, 40, 50]
         for batch in batch_test:
             input_shape = (X_train.shape[1], X_train.shape[2])
-            output_shape = (y_train.shape[1], y_train.shape[2])
-            model = self.LSTM_model(input_shape=input_shape, output_shape=output_shape, units=10)
+            model = self.LSTM_model(input_shape=input_shape,units=units)
             model.fit(X_train, y_train, epochs=epochs, batch_size=batch, verbose=verbose)
             mse = model.evaluate(X_test, y_test, verbose=verbose)
             batch_size_dict[batch] = mse

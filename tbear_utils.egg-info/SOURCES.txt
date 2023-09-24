@@ -9,6 +9,8 @@ tbear_utils/LSTM_funcs/__init__.py
 tbear_utils/LSTM_funcs/lstm_additions.py
 tbear_utils/SSB_API/__init__.py
 tbear_utils/SSB_API/ssbapi.py
+tbear_utils/catch_data/__init__.py
+tbear_utils/catch_data/data_treatment.py
 tbear_utils/statistical_models/__init__.py
 tbear_utils/statistical_models/differential_lin_reg/__init__.py
 tbear_utils/statistical_models/differential_lin_reg/differential_lin_reg.py
