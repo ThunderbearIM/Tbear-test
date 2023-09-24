@@ -39,9 +39,9 @@ class LSTM_additions:
         unit_dict = {}
         test_units = [10, 20, 30, 40, 50]
         for units in test_units:
-            input = X_train.shape[1]* X_train.shape[2]
-            output = y_train.shape[1]*y_train.shape[2]
-            model = self.LSTM_model(input_shape=input,output_shape=output, units=units)
+            input_shape = (X_train.shape[1], X_train.shape[2])
+            output = y_train.shape[1]
+            model = self.LSTM_model(input_shape=input_shape,output_shape=output, units=units)
             model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, verbose=verbose)
             mse = model.evaluate(X_test, y_test, verbose=verbose)
             unit_dict[units] = mse
