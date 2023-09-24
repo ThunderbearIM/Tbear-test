@@ -2,7 +2,7 @@ import pandas as pd
 import tensorflow
 from keras.layers import LSTM, Dense, Dropout, Activation, Flatten, Input, concatenate, BatchNormalization
 from keras.models import Model
-from keras import sequential
+from keras import Sequential
 
 class LSTM_additions:
 
@@ -19,7 +19,7 @@ class LSTM_additions:
         :param metrics: metrics
         :return: keras LSTM model
         """
-        model = sequential.Sequential()
+        model = Sequential.Sequential()
         model.add(LSTM(units=units, input_shape=input_shape, return_sequences=True))
         model.add(Dense(units=output_shape))
         model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
