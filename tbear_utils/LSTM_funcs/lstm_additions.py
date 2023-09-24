@@ -10,11 +10,12 @@ class LSTM_additions:
         pass
 
     @staticmethod
-    def LSTM_model(input_shape, units,  optimizer='adam', loss='mse', metrics=['mse'], ):
+    def LSTM_model(input_shape, output_shape, units,  optimizer='adam', loss='mse', metrics=['mse'], ):
         """
         Returns a keras LSTM model
         :param units:
         :param input_shape: shape of the input
+        :param output_shape:
         :param dropout: dropout rate
         :param recurrent_dropout: recurrent dropout rate
         :param optimizer: optimizer
@@ -23,8 +24,8 @@ class LSTM_additions:
         :return: keras LSTM model
         """
         model = Sequential()
-        model.add(LSTM(units=units, input_shape=input_shape, return_sequences=True))
-        model.add(Dense(units=1))
+        model.add(LSTM(units=units, input_dim=input_shape, return_sequences=False))
+        model.add(Dense(units=output_shape))
         model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
         return model
 
@@ -38,8 +39,9 @@ class LSTM_additions:
         unit_dict = {}
         test_units = [10, 20, 30, 40, 50]
         for units in test_units:
-            input_shape = (X_train.shape[1], X_train.shape[2])
-            model = self.LSTM_model(input_shape=input_shape, units=units)
+            input = X_train.shape[1]* X_train.shape[2]
+            output = y_train.shape[1]*y_train.shape[2]
+            model = self.LSTM_model(input_shape=input,output_shape=output, units=units)
             model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, verbose=verbose)
             mse = model.evaluate(X_test, y_test, verbose=verbose)
             unit_dict[units] = mse
