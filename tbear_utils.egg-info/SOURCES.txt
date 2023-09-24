@@ -5,6 +5,8 @@ tbear_utils.egg-info/PKG-INFO
 tbear_utils.egg-info/SOURCES.txt
 tbear_utils.egg-info/dependency_links.txt
 tbear_utils.egg-info/top_level.txt
+tbear_utils/LSTM_funcs/__init__.py
+tbear_utils/LSTM_funcs/lstm_additions.py
 tbear_utils/SSB_API/__init__.py
 tbear_utils/SSB_API/ssbapi.py
 tbear_utils/statistical_models/__init__.py
