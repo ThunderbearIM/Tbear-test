@@ -6,12 +6,15 @@ from keras import Sequential
 
 class LSTM_additions:
 
+    def __init__(self):
+        pass
+
     @staticmethod
-    def LSTM_model(input_shape, output_shape, units,  optimizer='adam', loss='mse', metrics=['mse'], ):
+    def LSTM_model(input_shape, units,  optimizer='adam', loss='mse', metrics=['mse'], ):
         """
         Returns a keras LSTM model
+        :param units:
         :param input_shape: shape of the input
-        :param output_shape: shape of the output
         :param dropout: dropout rate
         :param recurrent_dropout: recurrent dropout rate
         :param optimizer: optimizer
@@ -19,13 +22,13 @@ class LSTM_additions:
         :param metrics: metrics
         :return: keras LSTM model
         """
-        model = Sequential.Sequential()
+        model = Sequential()
         model.add(LSTM(units=units, input_shape=input_shape, return_sequences=True))
-        model.add(Dense(units=output_shape))
+        model.add(Dense(units=1))
         model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
         return model
 
-    def LSTM_unit_optimization(self, X_train, y_train, X_test, y_test, df, epochs=10, batch_size=32, verbose=1):
+    def LSTM_unit_optimization(self, X_train, y_train, X_test, y_test, epochs=10, batch_size=32, verbose=1):
         """
         Returns a dictionary of the optimal LSTM units for each column in the given dataframe
         after testing in a LSTM model
@@ -36,8 +39,7 @@ class LSTM_additions:
         test_units = [10, 20, 30, 40, 50]
         for units in test_units:
             input_shape = (X_train.shape[1], X_train.shape[2])
-            output_shape = (y_train.shape[1], y_train.shape[2])
-            model = self.LSTM_model(input_shape=input_shape, output_shape=output_shape, units=units)
+            model = self.LSTM_model(input_shape=input_shape, units=units)
             model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, verbose=verbose)
             mse = model.evaluate(X_test, y_test, verbose=verbose)
             unit_dict[units] = mse
@@ -46,7 +48,7 @@ class LSTM_additions:
 
         return unit
 
-    def LSTM_batch_size_optimization(self, X_train, y_train, X_test, y_test, df, epochs = 10, units=20, verbose=1):
+    def LSTM_batch_size_optimization(self, X_train, y_train, X_test, y_test, epochs = 10, units=20, verbose=1):
         """
         Returns a dictionary of the optimal LSTM batch size for each column in the given dataframe
         after testing in a LSTM model
@@ -74,7 +76,10 @@ class LSTM_additions:
         :param df: dataframe
         :return: batch_size: batch_size with lowest mse
         """
-        batch_and_unit_dict = {}
+        batch_size_dict = {}
+        batch_test = [10, 20, 30, 40, 50]
+        unit_dict = {}
+        test_units = [10, 20, 30, 40, 50]
         for column in df.columns:
             input_shape = (X_train.shape[1], X_train.shape[2])
             output_shape = (y_train.shape[1], y_train.shape[2])
