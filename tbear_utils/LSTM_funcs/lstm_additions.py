@@ -83,7 +83,7 @@ class ML_additions:
     def combine_batch_and_unit(self, X_train, y_train, X_test, y_test, df, epochs=10, verbose=1):
         """
         Returns a dictionary of the optimal LSTM batch size and units for each column in the given dataframe
-        after testing in a LSTM model
+        after testing in a LSTM model # TODO make this work.
         :param df: dataframe
         :return: batch_size: batch_size with lowest mse
         """
