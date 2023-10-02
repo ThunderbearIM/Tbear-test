@@ -33,6 +33,7 @@ class LSTM_additions:
         """
         Returns a dictionary of the optimal LSTM units for each column in the given dataframe
         after testing in a LSTM model
+
         :param df: dataframe
         :return: unit: unit with lowest mse
         """
@@ -46,7 +47,7 @@ class LSTM_additions:
             mse = model.evaluate(X_test, y_test, verbose=verbose)
             unit_dict[units] = mse
 
-        unit = min(unit_dict, key=unit_dict.get)
+        unit = min(unit_dict.values())
 
         return unit
 

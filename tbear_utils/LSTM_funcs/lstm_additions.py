@@ -24,8 +24,8 @@ class LSTM_additions:
         :return: keras LSTM model
         """
         model = Sequential()
-        model.add(LSTM(units=units, input_dim=input_shape, return_sequences=False))
-        model.add(Dense(units=output_shape))
+        model.add(LSTM(units=units, input_dim=input_shape,activation="tanh", return_sequences=False))
+        model.add(Dense(units=output_shape, activation='relu'))
         model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
         return model
 
