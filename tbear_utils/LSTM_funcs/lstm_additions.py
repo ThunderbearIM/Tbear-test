@@ -22,7 +22,14 @@ class ML_additions:
         :param optimizer: optimizer
         :param loss: loss function
         :param metrics: metrics
-        :return: keras LSTM model+
+        :return: keras LSTM model
+
+        Example:
+        >>> import numpy as np
+        >>> set_seed(42)
+        >>> labels = np.random.randint(2, size=(1000, 1))
+        >>> model = LSTM_model(input_shape=(50, 100), output_shape=1, units=20)
+        >>> model.fit(X_train, y_train, epochs=10, batch_size=32, verbose=1)
         """
         model = Sequential()
         model.add(LSTM(units=units, input_shape=input_shape, activation="tanh", return_sequences=False))
