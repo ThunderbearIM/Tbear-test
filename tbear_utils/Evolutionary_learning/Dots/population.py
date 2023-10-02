@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from math import dist
 
 
 class Individual:
@@ -14,6 +15,7 @@ class Individual:
         self.time_left = time_left()
         self.velocity = velocity()
         self.accel = accel()
+        self.pos = self.brain.position[-1]
         self.goal = np.array([5, 95])
 
     def genes(self):
@@ -31,16 +33,19 @@ class Individual:
         return x
 
     def distance_from_goal(self):
+        pos = self.pos
+        goal = self.goal
+        distance = dist(pos, goal)
+        return distance
 
     def fitness(self):
         """
         Evaluates the fitness of the dots based on distance from the goal in a 2d space with euclidian distance
         :return: goodness_of_fit
         """
+        distance = self.distance_from_goal()
 
-
-
-
+        if distance < 2:
 
 class Brain:
     """
@@ -114,10 +119,12 @@ class Brain:
         :return:
         """
         velocity = self.velocity
+        pos = self.position
         for i in range(len(velocity)):
             new_pos = pos[i]+velocity[i]
             pos = np.vstack((pos[i], new_pos))
 
+        self.position = pos
 
 
 class Population:
