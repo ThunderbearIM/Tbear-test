@@ -1,16 +1,17 @@
 import pandas as pd
 import tensorflow
-from keras.layers import LSTM, Dense, Dropout, Activation, Flatten, Input, concatenate, BatchNormalization
+from keras.layers import LSTM, Dense, Dropout, Activation, Flatten, Input, concatenate, BatchNormalization, \
+    Conv1D, MaxPooling1D, GlobalAveragePooling1D, GlobalMaxPooling1D
 from keras.models import Model
 from keras import Sequential
 
-class LSTM_additions:
+class ML_additions:
 
     def __init__(self):
         pass
 
     @staticmethod
-    def LSTM_model(input_shape, output_shape, units, optimizer='adam', loss='mse', metrics=['mse'], ):
+    def LSTM_model(input_shape, output_shape, units, optimizer='adam', loss='mse', metrics=['mse']):
         """
         Returns a keras LSTM model
         :param units:
@@ -94,3 +95,27 @@ class LSTM_additions:
         batch_and_unit = min(batch_and_unit_dict, key=batch_and_unit_dict.get)
 
         return batch_and_unit
+
+    @staticmethod
+    def cnn1D_model(input_shape, output_shape, optimizer='adam', loss='mse', metrics=['mse']):
+        """
+        Returns a keras CNN1D model
+        :param input_shape:
+        :param output_shape:
+        :param optimizer:
+        :param loss:
+        :param metrics:
+        :return: model
+        """
+
+        model = Sequential()
+        model.add(Conv1D(32, 3, activation='relu', input_shape=input_shape))
+        model.add(Conv1D(32, 3, activation='relu'))
+        model.add(MaxPooling1D(3))
+        model.add(Conv1D(64, 3, activation='relu'))
+        model.add(Conv1D(64, 3, activation='relu'))
+        model.add(GlobalMaxPooling1D())
+        model.add(Dropout(0.5))
+        model.add(Dense(output_shape, activation='relu'))
+        model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
+        return model
