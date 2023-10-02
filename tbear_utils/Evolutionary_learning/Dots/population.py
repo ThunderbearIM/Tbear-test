@@ -17,10 +17,11 @@ class Individual:
         self.accel = accel()
         self.pos = self.brain.position[-1]
         self.goal = np.array([5, 95])
+        self.fitness = self.fitness()
 
     def genes(self):
         brain = self.brain
-        return brain.position
+        return brain.acceleration()
 
     @staticmethod
     def generation_number(x):
@@ -41,11 +42,13 @@ class Individual:
     def fitness(self):
         """
         Evaluates the fitness of the dots based on distance from the goal in a 2d space with euclidian distance
-        :return: goodness_of_fit
+        :return: goodness_of_fit: miminmized fitness value based on goal
         """
         distance = self.distance_from_goal()
-
+        fit = distance^2
         if distance < 2:
+            fit = fit/5
+        return fit
 
 class Brain:
     """
@@ -127,8 +130,15 @@ class Brain:
         self.position = pos
 
 
-class Population:
+class Population():
+
+    """
+    Class made up of multiple individuals
+    """
 
     def __init__(self):
+        self.pop_size = 400
         self.individual = Individual()
-        self.brain = Brain()
+        self.generation = 0
+        self.max_steps = 100
+        self.steps_left = 100
