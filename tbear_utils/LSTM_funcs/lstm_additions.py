@@ -10,7 +10,7 @@ class LSTM_additions:
         pass
 
     @staticmethod
-    def LSTM_model(input_shape, output_shape, units,  optimizer='adam', loss='mse', metrics=['mse'], ):
+    def LSTM_model(input_shape, output_shape, units, optimizer='adam', loss='mse', metrics=['mse'], ):
         """
         Returns a keras LSTM model
         :param units:
@@ -21,10 +21,10 @@ class LSTM_additions:
         :param optimizer: optimizer
         :param loss: loss function
         :param metrics: metrics
-        :return: keras LSTM model
+        :return: keras LSTM model+
         """
         model = Sequential()
-        model.add(LSTM(units=units, input_dim=input_shape,activation="tanh", return_sequences=False))
+        model.add(LSTM(units=units, input_shape=input_shape, activation="tanh", return_sequences=False))
         model.add(Dense(units=output_shape, activation='relu'))
         model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
         return model
@@ -43,12 +43,12 @@ class LSTM_additions:
             print("testing units: ", units)
             input_shape = (X_train.shape[1], X_train.shape[2])
             output = y_train.shape[1]
-            model = self.LSTM_model(input_shape=input_shape,output_shape=output, units=units)
+            model = self.LSTM_model(input_shape=input_shape, output_shape=output, units=units)
             model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, verbose=verbose)
             mse = model.evaluate(X_test, y_test, verbose=verbose)
             unit_dict[units] = mse
 
-        unit = min(unit_dict.values())
+        unit = min(unit_dict, key=unit_dict.get)
         print("min value is: ", unit)
         return unit
 
