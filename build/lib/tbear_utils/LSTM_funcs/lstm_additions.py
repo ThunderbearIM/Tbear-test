@@ -24,8 +24,8 @@ class LSTM_additions:
         :return: keras LSTM model
         """
         model = Sequential()
-        model.add(LSTM(units=units, input_dim=input_shape, return_sequences=False))
-        model.add(Dense(units=output_shape))
+        model.add(LSTM(units=units, input_dim=input_shape,activation="tanh", return_sequences=False))
+        model.add(Dense(units=output_shape, activation='relu'))
         model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
         return model
 
@@ -40,6 +40,7 @@ class LSTM_additions:
         unit_dict = {}
         test_units = [10, 20, 30, 40, 50]
         for units in test_units:
+            print("testing units: ", units)
             input_shape = (X_train.shape[1], X_train.shape[2])
             output = y_train.shape[1]
             model = self.LSTM_model(input_shape=input_shape,output_shape=output, units=units)
@@ -48,7 +49,7 @@ class LSTM_additions:
             unit_dict[units] = mse
 
         unit = min(unit_dict.values())
-
+        print("min value is: ", unit)
         return unit
 
     def LSTM_batch_size_optimization(self, X_train, y_train, X_test, y_test, epochs = 10, units=20, verbose=1):
