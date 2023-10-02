@@ -9,12 +9,8 @@ class Individual:
 
     def __init__(self):
         self.brain = Brain()
-        self.genes = genes()
-        self.generation = generation_number()
+        self.genes = self.genes()
         self.max_steps = 100
-        self.time_left = time_left()
-        self.velocity = velocity()
-        self.accel = accel()
         self.pos = self.brain.position[-1]
         self.goal = np.array([5, 95])
         self.fitness = self.fitness()
