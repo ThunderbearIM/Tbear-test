@@ -47,7 +47,7 @@ class LSTM_additions:
             mse = model.evaluate(X_test, y_test, verbose=verbose)
             unit_dict[units] = mse
 
-        unit = min(unit_dict, key=unit_dict.get)
+        unit = min(unit_dict.values())
 
         return unit
 
