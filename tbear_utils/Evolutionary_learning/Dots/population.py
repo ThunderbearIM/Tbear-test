@@ -16,6 +16,7 @@ class Individual:
         self.fitness = self.fitness()
         self.position = np.array([[5, 5]])
         self.step = 0
+        self.dead = False
 
     def genes(self):
         brain = self.brain
@@ -70,9 +71,16 @@ class Individual:
         self.position = pos
 
     def move(self):
-        self.velocity()
-        self.pos()
-        self.step += 1
+
+        if len(self.brain.acceleration) > self.step:
+            self.velocity()
+            self.pos()
+            self.step += 1
+        else:
+            self.dead = True
+
+    def update(self):
+        position = self.position
 
 
 class Brain:
