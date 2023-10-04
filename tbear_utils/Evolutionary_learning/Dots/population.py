@@ -11,7 +11,7 @@ class Individual:
         self.brain = Brain()
         self.genes = self.genes()
         self.max_steps = 100
-        self.velocity = np.zeros([400, 2])
+        self.speed = np.zeros([400, 2])
         self.goal = np.array([5, 95])
         self.fitness = self.fitness()
         self.position = np.array([[5, 5]])
@@ -53,24 +53,27 @@ class Individual:
         Takes the acceleration and adds it to the velocity
         :return:
         """
-        velocity = self.velocity
+        velocity = self.speed
         accel = self.brain.acceleration
         velocity = np.vstack((velocity, velocity[-1]+accel[self.step]))
-        self.velocity = velocity
+        self.speed = velocity
 
-    def position(self):
+    def pos(self):
         """
         Adds the current velocity to the position
         :return:
         """
-        velocity = self.velocity
+        velocity = self.speed
         pos = self.position
         pos = np.vstack((pos, pos[-1]+velocity[self.step]))
 
         self.position = pos
 
     def move(self):
-        acc = self.brain.acceleration[self.step]
+        self.velocity()
+        self.pos()
+        self.step += 1
+
 
 class Brain:
     """
@@ -79,9 +82,10 @@ class Brain:
 
     def __init__(self):
         self.size=400
-        self.acceleration = self.acceleration(400)
+        self.acceleration = self.accel(self.size)
 
-    def acceleration(self, size):
+    @staticmethod
+    def accel(size):
         """
         Acceleration method for the direction of the dots
         :return:
@@ -89,7 +93,7 @@ class Brain:
         x = np.random.uniform(low=-1, high=1, size=size)
         y = np.random.uniform(low=-1, high=1, size=size)
         accel = np.append(x, y).reshape(size, 2)
-        self.acceleration = accel
+        return accel
 
     def mutate(self):
         genes = self.acceleration
