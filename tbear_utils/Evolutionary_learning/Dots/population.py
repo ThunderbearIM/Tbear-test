@@ -126,7 +126,7 @@ class Brain:
         self.position = pos
 
 
-class Population():
+class Population:
 
     """
     Class made up of multiple individuals
@@ -138,3 +138,17 @@ class Population():
         self.generation = 0
         self.max_steps = 100
         self.steps_left = 100
+
+    @staticmethod
+    def create_population(pop_size):
+        """
+        Initialize a population of Class individuals based on the parameter pop_size
+        :param pop_size:
+        :return:
+        """
+        lst = list()
+        for i in range(pop_size):
+            lst.append(Individual())
+
+        return lst
+
