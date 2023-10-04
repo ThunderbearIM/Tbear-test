@@ -11,9 +11,11 @@ class Individual:
         self.brain = Brain()
         self.genes = self.genes()
         self.max_steps = 100
-        self.pos = self.brain.position[-1]
+        self.velocity = np.zeros([400, 2])
         self.goal = np.array([5, 95])
         self.fitness = self.fitness()
+        self.position = np.array([[5, 5]])
+        self.step = 0
 
     def genes(self):
         brain = self.brain
@@ -41,10 +43,34 @@ class Individual:
         :return: goodness_of_fit: miminmized fitness value based on goal
         """
         distance = self.distance_from_goal()
-        fit = distance^2
+        fit = np.square(distance)
         if distance < 2:
             fit = fit/5
         return fit
+
+    def velocity(self):
+        """
+        Takes the acceleration and adds it to the velocity
+        :return:
+        """
+        velocity = self.velocity
+        accel = self.brain.acceleration
+        velocity = np.vstack((velocity, velocity[-1]+accel[self.step]))
+        self.velocity = velocity
+
+    def position(self):
+        """
+        Adds the current velocity to the position
+        :return:
+        """
+        velocity = self.velocity
+        pos = self.position
+        pos = np.vstack((pos, pos[-1]+velocity[self.step]))
+
+        self.position = pos
+
+    def move(self):
+        acc = self.brain.acceleration[self.step]
 
 class Brain:
     """
@@ -53,9 +79,7 @@ class Brain:
 
     def __init__(self):
         self.size=400
-        self.velocity = np.zeros([400, 2])
-        self.acceleration = self.acceleration()
-        self.position = np.array([[5, 5]])
+        self.acceleration = self.acceleration(400)
 
     def acceleration(self, size):
         """
@@ -65,33 +89,7 @@ class Brain:
         x = np.random.uniform(low=-1, high=1, size=size)
         y = np.random.uniform(low=-1, high=1, size=size)
         accel = np.append(x, y).reshape(size, 2)
-        return accel
-
-    def velocity(self):
-        """
-        Takes the acceleration and adds it to the velocity
-        :return:
-        """
-        velocity = self.velocity
-        accel = self.acceleration
-
-        for i in range(1, len(velocity)):
-
-            velocity[i] = accel[i]+velocity[i-1]
-
-            if velocity[i][0] > 3:
-                velocity[i][0] = 3
-
-            if velocity[i][0] < -3:
-                velocity[i][0] = -3
-
-            if velocity[i][1] > 3:
-                velocity[i][1] = 3
-
-            if velocity[i][1] < -3:
-                velocity[i][1] = -3
-
-        return velocity
+        self.acceleration = accel
 
     def mutate(self):
         genes = self.acceleration
@@ -112,18 +110,6 @@ class Brain:
 
         self.acceleration = genes
 
-    def position(self):
-        """
-        Adds the current velocity to the position
-        :return:
-        """
-        velocity = self.velocity
-        pos = self.position
-        for i in range(len(velocity)):
-            new_pos = pos[i]+velocity[i]
-            pos = np.vstack((pos[i], new_pos))
-
-        self.position = pos
 
 
 class Population:
@@ -138,6 +124,7 @@ class Population:
         self.generation = 0
         self.max_steps = 100
         self.steps_left = 100
+        self.population = self.create_population()
 
     @staticmethod
     def create_population(pop_size):
