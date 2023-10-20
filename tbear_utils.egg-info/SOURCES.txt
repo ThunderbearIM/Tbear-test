@@ -1,10 +1,14 @@
 pyproject.toml
 setup.py
 tbear_utils/__init__.py
+tbear_utils/barplot_animater.py
 tbear_utils.egg-info/PKG-INFO
 tbear_utils.egg-info/SOURCES.txt
 tbear_utils.egg-info/dependency_links.txt
 tbear_utils.egg-info/top_level.txt
+tbear_utils/Evolutionary_learning/__init__.py
+tbear_utils/Evolutionary_learning/Dots/__init__.py
+tbear_utils/Evolutionary_learning/Dots/population.py
 tbear_utils/LSTM_funcs/__init__.py
 tbear_utils/LSTM_funcs/lstm_additions.py
 tbear_utils/SSB_API/__init__.py
