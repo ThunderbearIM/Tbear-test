@@ -32,7 +32,7 @@ class BarplotAnimater:
         :param i: index
         :return: barplot
         """
-        data = self.read_csv("Cumulative_ListOfDeaths.csv").sort_values(by=str(i+1))
+        data = self.read_csv("cumsum_list_of_deaths_ulduar.csv").sort_values(by=str(i+1))
         plt.cla()
         plt.barh(data.index, data.iloc[:, i])
         for index, value in enumerate(data.iloc[:, i]):
@@ -46,7 +46,7 @@ class BarplotAnimater:
     def main(self):
         """
         Main function
-        :return: barplot
+        :return: barplot 
         """
         fig = plt.figure(figsize=(10, 20))
         plt.xticks(rotation=90)
@@ -56,13 +56,13 @@ class BarplotAnimater:
 
     def save_plot(self):
         """
-        Saves the plot as a gif
+        Saves the animation
         :return: gif
         """
         fig = plt.figure(figsize=(10, 20))
         plt.xticks(rotation=90)
         plt.tight_layout()
-        anim = FuncAnimation(fig, self.animate, interval=1000, frames=200)
+        anim = FuncAnimation(fig, self.animate, interval=1000, frames=300)
         anim.save(r'C:\Users\torbj\ShameOnDanzi.gif', writer='imagemagick', fps=1)
 
 if __name__ == "__main__":
